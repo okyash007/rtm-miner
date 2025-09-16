@@ -2,6 +2,11 @@
 
 # RTM Mining Control Script - All-in-One
 # Usage: ./start-mining.sh [start|stop|status|logs|restart]
+# 
+# WORKING CONFIGURATION (Fixed authentication issues):
+# - Clean wallet address format (no difficulty modifiers)
+# - Correct pool: rtm-stratum.pukkapool.com:3052
+# - Algorithm: gr (GhostRider)
 
 RTM_WALLET="RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU"
 POOL="stratum+tcp://rtm-stratum.pukkapool.com:3052"
@@ -46,7 +51,7 @@ start_mining() {
     echo "=========================="
     echo ""
     
-    # Start mining in background
+    # Start mining in background (working configuration)
     nohup ./cpuminer -a gr -o $POOL -u $RTM_WALLET -t 0 > $LOG_FILE 2>&1 &
     echo $! > $PID_FILE
     
