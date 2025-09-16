@@ -5,23 +5,23 @@
     "algorithm": "gr",
     "pools": [
         {
-            "name": "Primary Pool",
-            "url": "stratum+tcp://pool.raptoreum.com:3333",
-            "user": "YOUR_RTM_WALLET_ADDRESS",
+            "name": "Primary Pool - PukkaPool",
+            "url": "stratum+tcp://rtm-stratum.pukkapool.com:3052",
+            "user": "RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU",
             "pass": "x",
             "enabled": true
         },
         {
-            "name": "Backup Pool 1",
-            "url": "stratum+tcp://rtm.suprnova.cc:7019",
-            "user": "YOUR_RTM_WALLET_ADDRESS",
+            "name": "Backup Pool 1 - Official",
+            "url": "stratum+tcp://pool.raptoreum.com:3333",
+            "user": "RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU",
             "pass": "x",
             "enabled": false
         },
         {
-            "name": "Backup Pool 2", 
-            "url": "stratum+tcp://rtm.pukkapool.com:3052",
-            "user": "YOUR_RTM_WALLET_ADDRESS",
+            "name": "Backup Pool 2 - Suprnova", 
+            "url": "stratum+tcp://rtm.suprnova.cc:7019",
+            "user": "RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU",
             "pass": "x",
             "enabled": false
         }

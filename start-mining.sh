@@ -3,7 +3,7 @@
 # RTM Mining Script with Live Logging
 
 RTM_WALLET="RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU"
-POOL="stratum+tcp://pool.raptoreum.com:3333"
+POOL="stratum+tcp://rtm-stratum.pukkapool.com:3052"
 
 echo "=== RTM Mining Started ==="
 echo "Wallet: $RTM_WALLET"

@@ -4,10 +4,10 @@
 # Edit the variables below with your details
 
 # Your RTM wallet address (CHANGE THIS!)
-RTM_WALLET="YOUR_RTM_WALLET_ADDRESS_HERE"
+RTM_WALLET="RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU"
 
-# Mining pool (change if needed)
-POOL_URL="stratum+tcp://pool.raptoreum.com:3333"
+# Mining pool (change if needed) - MUST match your dashboard pool
+POOL_URL="stratum+tcp://rtm-stratum.pukkapool.com:3052"
 
 # Number of CPU threads (0 = auto-detect all cores)
 THREADS=0
