@@ -91,10 +91,11 @@ else
     echo -e "${RED}✗ RAM: ${RAM_GB}GB (insufficient, 16GB+ required)${NC}"
 fi
 
-# Download cpuminer-opt
-echo -e "${BLUE}Downloading cpuminer-opt...${NC}"
-chmod +x download-miner.sh
-./download-miner.sh
+# Note: This script is deprecated. Use rtm-mining-setup.sh instead
+echo -e "${YELLOW}⚠️  This script is deprecated.${NC}"
+echo -e "${YELLOW}Use the new automated script: rtm-mining-setup.sh${NC}"
+echo -e "${GREEN}Run: ./rtm-mining-setup.sh install${NC}"
+exit 1
 
 # Create mining user (optional but recommended)
 echo -e "${BLUE}Setting up mining environment...${NC}"

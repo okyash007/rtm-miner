@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# RTM Mining Control Script - All-in-One
-# Usage: ./start-mining.sh [start|stop|status|logs|restart]
+# RTM Mining Control Script - DEPRECATED
+# This script is deprecated. Use rtm-mining-setup.sh instead
 # 
-# WORKING CONFIGURATION (Fixed authentication issues):
-# - Clean wallet address format (no difficulty modifiers)
-# - Correct pool: rtm-stratum.pukkapool.com:3052
-# - Algorithm: gr (GhostRider)
+# The new script uses Wyvern CPU Miner with working GhostRider algorithm
+
+echo "⚠️  This script is deprecated."
+echo "Use the new automated script: rtm-mining-setup.sh"
+echo "Run: ./rtm-mining-setup.sh install"
+exit 1
 
 RTM_WALLET="RBg88PoU3GLTV9UqfkqCHSZ5ncoMWWQ7zU"
 POOL="stratum+tcp://rtm-stratum.pukkapool.com:3052"
