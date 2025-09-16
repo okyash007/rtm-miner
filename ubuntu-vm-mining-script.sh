@@ -70,14 +70,19 @@ install_dependencies() {
     # Update package list
     sudo apt update
     
-    # Install required packages
+    # Install required packages for building cpuminer-opt
     sudo apt install -y \
-        wget curl unzip \
+        git \
         build-essential \
-        libssl-dev \
+        automake \
+        autoconf \
+        pkg-config \
         libcurl4-openssl-dev \
         libjansson-dev \
+        libssl-dev \
         libgmp-dev \
+        libtool \
+        wget curl unzip \
         screen htop
     
     echo -e "${GREEN}✓ Dependencies installed${NC}"
@@ -85,25 +90,44 @@ install_dependencies() {
 }
 
 download_miner() {
-    echo -e "${BLUE}Downloading cpuminer-opt...${NC}"
+    echo -e "${BLUE}Building cpuminer-opt from source...${NC}"
     
     cd "$MINER_DIR"
     
-    # Download latest cpuminer-opt
-    MINER_URL="https://github.com/JayDDee/cpuminer-opt/releases/download/v3.21.0/cpuminer-opt-3.21.0-linux.tar.gz"
+    # Clone the Raptor3um fork (required for GhostRider algorithm)
+    if [ ! -d "cpuminer-opt" ]; then
+        echo -e "${BLUE}Cloning Raptor3um cpuminer-opt repository...${NC}"
+        git clone https://github.com/Raptor3um/cpuminer-opt.git
+        cd cpuminer-opt
+    else
+        cd cpuminer-opt
+        echo -e "${BLUE}Updating existing repository...${NC}"
+        git pull
+    fi
     
+    # Build the miner
     if [ ! -f "cpuminer" ]; then
-        wget -O cpuminer-opt.tar.gz "$MINER_URL"
-        tar -xzf cpuminer-opt.tar.gz --strip-components=1
+        echo -e "${BLUE}Building miner (this may take a few minutes)...${NC}"
+        
+        # Make build script executable
+        chmod +x build.sh
+        
+        # Build the miner
+        ./build.sh || {
+            echo -e "${YELLOW}Build script failed, trying manual build...${NC}"
+            ./autogen.sh
+            ./configure CFLAGS="-O3 -march=native -Wall" CXXFLAGS="-O3 -march=native -Wall"
+            make -j$(nproc)
+        }
+        
         chmod +x cpuminer
-        rm cpuminer-opt.tar.gz
     fi
     
     # Test miner
     if ./cpuminer --help > /dev/null 2>&1; then
-        echo -e "${GREEN}✓ Miner downloaded and ready${NC}"
+        echo -e "${GREEN}✓ Miner built and ready${NC}"
     else
-        echo -e "${RED}✗ Miner test failed${NC}"
+        echo -e "${RED}✗ Miner build failed${NC}"
         exit 1
     fi
     
@@ -144,8 +168,8 @@ start_mining() {
     echo "Log: $log_file"
     echo ""
     
-    # Start mining
-    cd "$MINER_DIR"
+    # Start mining (navigate to cpuminer-opt directory)
+    cd "$MINER_DIR/cpuminer-opt"
     ./cpuminer \
         -a "$ALGORITHM" \
         -o "$pool" \
@@ -192,7 +216,7 @@ main() {
             local log_file="$LOG_DIR/mining_$timestamp.log"
             
             # Check if miner exists
-            if [ ! -f "$MINER_DIR/cpuminer" ]; then
+            if [ ! -f "$MINER_DIR/cpuminer-opt/cpuminer" ]; then
                 echo -e "${YELLOW}Miner not found. Installing...${NC}"
                 install_dependencies
                 download_miner
@@ -211,7 +235,7 @@ main() {
             local log_file="$LOG_DIR/mining_$timestamp.log"
             
             screen -dmS rtm-mining bash -c "
-                cd '$MINER_DIR'
+                cd '$MINER_DIR/cpuminer-opt'
                 ./cpuminer -a '$ALGORITHM' -o '$POOL_PRIMARY' -u '$RTM_WALLET' -p x -t $threads --cpu-priority=3 2>&1 | tee '$log_file'
             "
             
