@@ -1,0 +1,74 @@
+{
+    "_comment": "RTM (Raptoreum) Mining Configuration",
+    "_comment2": "Edit the values below with your mining details",
+    
+    "algorithm": "gr",
+    "pools": [
+        {
+            "name": "Primary Pool",
+            "url": "stratum+tcp://pool.raptoreum.com:3333",
+            "user": "YOUR_RTM_WALLET_ADDRESS",
+            "pass": "x",
+            "enabled": true
+        },
+        {
+            "name": "Backup Pool 1",
+            "url": "stratum+tcp://rtm.suprnova.cc:7019",
+            "user": "YOUR_RTM_WALLET_ADDRESS",
+            "pass": "x",
+            "enabled": false
+        },
+        {
+            "name": "Backup Pool 2", 
+            "url": "stratum+tcp://rtm.pukkapool.com:3052",
+            "user": "YOUR_RTM_WALLET_ADDRESS",
+            "pass": "x",
+            "enabled": false
+        }
+    ],
+    
+    "mining": {
+        "threads": 0,
+        "_threads_comment": "0 = auto-detect, or set specific number",
+        "cpu_affinity": -1,
+        "_cpu_affinity_comment": "-1 = auto, or specify CPU cores (hex)",
+        "cpu_priority": 0,
+        "_cpu_priority_comment": "0-5, higher = more priority",
+        "max_cpu_usage": 100,
+        "_max_cpu_usage_comment": "Percentage of CPU to use (1-100)"
+    },
+    
+    "tuning": {
+        "tune": true,
+        "_tune_comment": "Enable auto-tuning (recommended for first run)",
+        "tune_config": "tune_config",
+        "_tune_config_comment": "File to save/load tuning results"
+    },
+    
+    "logging": {
+        "log_file": "../logs/mining.log",
+        "quiet": false,
+        "debug": false,
+        "syslog": false
+    },
+    
+    "api": {
+        "enabled": true,
+        "port": 4068,
+        "bind": "127.0.0.1",
+        "_api_comment": "Local API for monitoring (http://127.0.0.1:4068/api.json)"
+    },
+    
+    "features": {
+        "donate_level": 1,
+        "_donate_comment": "1% donation to developers (recommended)",
+        "print_time": 60,
+        "_print_time_comment": "Status update interval in seconds",
+        "retries": 5,
+        "retry_pause": 5,
+        "user_agent": "cpuminer-opt/RTM-Setup",
+        "keepalive": true,
+        "nicehash": false
+    }
+}
+
